@@ -1,1 +1,1 @@
-web: bin/hubot -a irc -n Eugenia
+web: bin/eugenia -a irc -n Eugenia

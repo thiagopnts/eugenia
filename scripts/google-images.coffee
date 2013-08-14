@@ -12,7 +12,19 @@ module.exports = (robot) ->
     imageMe msg, msg.match[3], (url) ->
       msg.send url
 
+  robot.respond /(fotos|fts)( de)? (.*)/i, (msg) ->
+    if msg.match[2] == "suas" or msg.match[3] == "suas"
+      imageMe msg, 'Katie Fey', (url) ->
+        msg.send url
+    else
+      imageMe msg, msg.match[3], (url) ->
+        msg.send url
+
   robot.respond /animate( me)? (.*)/i, (msg) ->
+    imageMe msg, msg.match[2], true, (url) ->
+      msg.send url
+
+  robot.respond /(gif|gifs)( de)? (.*)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
       msg.send url
 
