@@ -8,13 +8,19 @@
 #   hubot mustache me <query> - Searches Google Images for the specified query and mustaches it.
 
 module.exports = (robot) ->
+
+  robot.respond /(me )?mostr(e|a)( me)? (.*)/i, (msg) ->
+    imageMe msg, msg.match[4], (url) ->
+      msg.send url
+
   robot.respond /(image|img)( me)? (.*)/i, (msg) ->
     imageMe msg, msg.match[3], (url) ->
       msg.send url
 
   robot.respond /(fotos|fts)( de)? (.*)/i, (msg) ->
     if msg.match[2] == "suas" or msg.match[3] == "suas"
-      imageMe msg, 'Katie Fey', (url) ->
+      imageMe msg, 'Yevgenia Diordiychuk', (url) ->
+        msg.send 'Adoro mostrar fotos minhas...'
         msg.send url
     else
       imageMe msg, msg.match[3], (url) ->
