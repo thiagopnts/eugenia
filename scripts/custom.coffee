@@ -1,15 +1,28 @@
 
-greetings = ['oi', 'oi lindo', 'oi gato', 'olá', 'oe']
+greetings = ['oi', 'olá', 'oiii']
+adjectives = ['lindo', 'gato', 'gatinho', 'playboy', 'arrombado', 'delícia']
 
 module.exports = (robot) ->
   robot.hear /\boi$/i, (msg) ->
-    msg.send greetings[parseInt(Math.random() * greetings.length, 10)]
+    msg.send getRandomGreeting() + ', ' + getRandomAdjective()
 
   robot.hear /\bachei\b/i, (msg) ->
-    msg.send "achou ERRADO"
+    msg.send "achou errado, " + getRandomAdjective()
 
   robot.hear /\bpensei\b/i, (msg) ->
-    msg.send "pensou ERRADO"
+    msg.send "pensou errado, " + getRandomAdjective()
 
+  robot.hear /\bpensando\b/i, (msg) ->
+    msg.send "pensando errado, " + getRandomAdjective()
 
+  robot.hear /https?.*/i, (msg) ->
+    msg.send "graaaaaaças a deus, mandaram um link!"
 
+  robot.hear /\bfacebook\b/i, (msg) ->
+    msg.send "me add no feice, " + getRandomAdjective() + " https://www.facebook.com/ediordiychuk"
+
+getRandomAdjective = ->
+  adjectives[parseInt(Math.random() * adjectives.length, 10)]
+
+getRandomGreeting = ->
+  greetings[parseInt(Math.random() * greetings.length, 10)]
