@@ -1,6 +1,6 @@
 
 greetings = ['oi', 'olá', 'oiii']
-adjectives = ['lindo', 'gato', 'gatinho', 'playboy', 'arrombado', 'delícia']
+adjectives = ['lindo', 'gato', 'gatinho', 'playboy', 'arrombado', 'delícia', 'picareta']
 
 module.exports = (robot) ->
   robot.hear /\boi$/i, (msg) ->
