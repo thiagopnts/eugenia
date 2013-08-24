@@ -36,11 +36,9 @@ module.exports = (robot) ->
   robot.hear /vsf|vai se fuder?|fuder|tnc|tomar no cu|puta|pqp|cara(i|lho)/i, (msg) ->
     msg.reply "#{msg.random badLanguageReplies}... ;)"
 
-  robot.hear /(kk|h([a-u])(h([a-u])|[a-u]))+/i, (msg) ->
+  robot.hear /(kk|h(a|e|i|o|u)(h(a|e|i|o|u)))+/i, (msg) ->
     msg.send msg.random lol
 
   robot.enter (msg) ->
     msg.send "#{msg.random enterReplies} #{msg.random adjectives}"
     msg.send "kkkkk" if (Math.random() * 5) > 4.2
-
-
