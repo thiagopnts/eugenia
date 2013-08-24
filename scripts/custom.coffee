@@ -2,6 +2,17 @@
 greetings = ['oi', 'olá', 'oiii']
 adjectives = ['lindo', 'gato', 'gatinho', 'playboy', 'arrombado', 'delícia', 'picareta']
 enterReplies = ['Seja bem vindo', 'Bem vindo', 'Olha só quem chegou... esse é']
+badLanguageReplies = ['Nossa que boca suja', 'Calma cara não precisa xingar']
+lol = [
+  'HAHAHAHHAHAHAHA que bosta',
+  'HAUEHAUEHAEHAUEAHE',
+  'KKKKKKKKKKKKKKKK',
+  'kkkkkkkkkkkkk',
+  'rs.',
+  'nossa que merda',
+  'HUEHUEHUEHUE',
+  'HUEHUEHUEBRBRBR'
+]
 
 module.exports = (robot) ->
   robot.hear /\boi$/i, (msg) ->
@@ -22,7 +33,14 @@ module.exports = (robot) ->
   robot.hear /\bfacebook\b/i, (msg) ->
     msg.send "me add no feice, " + msg.random(adjectives) + " https://www.facebook.com/ediordiychuk" if (Math.random() * 5) > 4.2
 
+  robot.hear /vsf|vai se fuder?|fuder|tnc|tomar no cu|puta|pqp|cara(i|lho)/i, (msg) ->
+    msg.reply "#{msg.random badLanguageReplies}... ;)"
+
+  robot.hear /(kk|h([a-u])(h([a-u])|[a-u]))+/i, (msg) ->
+    msg.send msg.random lol
+
   robot.enter (msg) ->
     msg.send "#{msg.random enterReplies} #{msg.random adjectives}"
     msg.send "kkkkk" if (Math.random() * 5) > 4.2
+
 
