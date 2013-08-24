@@ -15,6 +15,12 @@ lol = [
 ]
 
 module.exports = (robot) ->
+
+  robot.respond /sai do \#\#globo/i, (msg) =>
+    robot.adapter.bot.part('##globo')
+    msg.send "Seu pedido é uma ordem"
+    
+
   robot.hear /\boi$/i, (msg) ->
     msg.send msg.random(greetings) + ', ' + msg.random(adjectives)
 
