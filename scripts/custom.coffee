@@ -39,7 +39,7 @@ module.exports = (robot) ->
   robot.hear /\bfacebook\b/i, (msg) ->
     msg.send "me add no feice, " + msg.random(adjectives) + " https://www.facebook.com/ediordiychuk" if (Math.random() * 5) > 4.2
 
-  robot.hear /vsf|vai se fuder?|fuder|tnc|tomar no cu|puta|pqp|cara(i|lho)/i, (msg) ->
+  robot.hear /vsf|vai se fuder?|fuder|tnc|tomar no cu|puta|pqp|cara(i|lho)|merda/i, (msg) ->
     msg.reply "#{msg.random badLanguageReplies}... ;)"
 
   robot.hear /(kk|h(a|e|i|o|u)(h(a|e|i|o|u)))+/i, (msg) ->
