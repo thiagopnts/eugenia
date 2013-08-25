@@ -9,41 +9,61 @@
 
 module.exports = (robot) ->
 
+  reply = ['Não falo com estranhos.', 'te conheço?', 'só falo com amigos ;)'];
+
   robot.respond /(me )?mostr(e|a)( me)? (.*)/i, (msg) ->
-    imageMe msg, msg.match[4], (url) ->
-      msg.send url
+    if robot.isFriend(msg.envelope.user.name)
+      imageMe msg, msg.match[4], (url) ->
+        msg.send url
+    else
+      msg.reply msg.random(reply)
 
   robot.respond /(image|img)( me)? (.*)/i, (msg) ->
-    imageMe msg, msg.match[3], (url) ->
-      msg.send url
-
-  robot.respond /(fotos|fts)( de)? (.*)/i, (msg) ->
-    if msg.match[2] == "suas" or msg.match[3] == "suas"
-      imageMe msg, 'Yevgenia Diordiychuk', (url) ->
-        msg.send 'Adoro mostrar fotos minhas...'
-        msg.send url
-    else
+    if robot.isFriend(msg.envelope.user.name)
       imageMe msg, msg.match[3], (url) ->
         msg.send url
+    else
+      msg.reply msg.random(reply)
+
+  robot.respond /(fotos|fts)( de)? (.*)/i, (msg) ->
+    if robot.isFriend(msg.envelope.user.name)
+      if msg.match[2] == "suas" or msg.match[3] == "suas"
+        imageMe msg, 'Yevgenia Diordiychuk', (url) ->
+          msg.send 'Adoro mostrar fotos minhas...'
+          msg.send url
+      else
+        imageMe msg, msg.match[3], (url) ->
+          msg.send url
+    else
+      msg.reply msg.random(reply)
 
   robot.respond /animate( me)? (.*)/i, (msg) ->
-    imageMe msg, msg.match[2], true, (url) ->
-      msg.send url
+    if robot.isFriend(msg.envelope.user.name)
+      imageMe msg, msg.match[2], true, (url) ->
+        msg.send url
+    else
+      msg.reply msg.random(reply)
 
   robot.respond /(gif|gifs)( de)? (.*)/i, (msg) ->
-    imageMe msg, msg.match[2], true, (url) ->
-      msg.send url
+    if robot.isFriend(msg.envelope.user.name)
+      imageMe msg, msg.match[2], true, (url) ->
+        msg.send url
+    else
+      msg.reply msg.random(reply)
 
   robot.respond /(?:mo?u)?sta(?:s|c)he?(?: me)? (.*)/i, (msg) ->
-    type = Math.floor(Math.random() * 3)
-    mustachify = "http://mustachify.me/#{type}?src="
-    imagery = msg.match[1]
+    if robot.isFriend(msg.envelope.user.name)
+      type = Math.floor(Math.random() * 3)
+      mustachify = "http://mustachify.me/#{type}?src="
+      imagery = msg.match[1]
 
-    if imagery.match /^https?:\/\//i
-      msg.send "#{mustachify}#{imagery}"
+      if imagery.match /^https?:\/\//i
+        msg.send "#{mustachify}#{imagery}"
+      else
+        imageMe msg, imagery, false, true, (url) ->
+          msg.send "#{mustachify}#{url}"
     else
-      imageMe msg, imagery, false, true, (url) ->
-        msg.send "#{mustachify}#{url}"
+      msg.reply msg.random(reply)
 
 imageMe = (msg, query, animated, faces, cb) ->
   cb = animated if typeof animated == 'function'

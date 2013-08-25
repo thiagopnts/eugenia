@@ -10,12 +10,17 @@ if(!String.prototype.format) {
 }
 
 
-var replies = ["Oi {0}, prazer em conhece-lo ;)", "{0} prazer :**"];
-var badReplies = ["Se toca cara, te conheço?", "Sai fora.", "Não conheço nem você, imagina esse outro mané."];
-var yes = ['yeeees', 'sim', 'yep'];
-var no = ['nop', 'nope', 'não', 'nam'];
+var replies    = ["Oi {0}, prazer em conhece-lo ;)", "{0} prazer :**"],
+    badReplies = ["Se toca cara, te conheço?", "Sai fora.", "Não conheço nem você, imagina esse outro mané."],
+    yes        = ['yeeees', 'sim', 'yep'],
+    no         = ['nop', 'nope', 'não', 'nam'];
 
 module.exports = function(robot) {
+
+  robot.isFriend = function(name) {
+    var user = robot.brain.userForName(name);
+    return user && user.friend;
+  }
 
   robot.respond(/(\w+) é amigo nosso$/, function(msg) {
     var nick   = msg.match[1],
@@ -23,7 +28,7 @@ module.exports = function(robot) {
     
     if(sender.friend) {
       user = robot.brain.userForName(nick);
-      user.friend = true
+      user.friend = true;
       msg.reply(msg.random(replies).format(nick));
     } else {
       msg.reply(msg.random(badReplies));
