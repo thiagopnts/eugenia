@@ -1,14 +1,14 @@
 {
-  "name": "hosted-hubot",
-  "version": "2.6.0",
-  "author": "GitHub Inc.",
+  "name": "Eugenia",
+  "version": "0.0.2",
+  "author": "Globo.com",
   "keywords": [
-    "github",
+    "eugenia",
     "hubot",
-    "campfire",
+    "irc",
     "bot"
   ],
-  "description": "A simple helpful robot for your Company",
+  "description": "A simple useful bot whore",
   "licenses": [
     {
       "type": "MIT",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/github/hubot.git"
+    "url": "https://github.com/thiagopnts/eugenia.git"
   },
   "dependencies": {
     "hubot": ">= 2.6.0 < 3.0.0",
