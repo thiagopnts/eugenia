@@ -16,11 +16,6 @@ lol = [
 
 module.exports = (robot) ->
 
-  robot.enter (msg) ->
-    msg.send('Linda e absoluta rodando no tsuru')
-  robot.leave (msg) ->
-    msg.send('#partiu')
-
   robot.respond /sai do \#\#globo/i, (msg) =>
     robot.adapter.bot.part('##globo')
     msg.send "Seu pedido é uma ordem"
