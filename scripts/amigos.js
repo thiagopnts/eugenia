@@ -29,7 +29,7 @@ module.exports = function(robot) {
     if(sender.friend) {
       user = robot.brain.userForName(nick);
       user.friend = true;
-      msg.send(msg.random(replies).format(nick));
+      msg.reply(msg.random(replies).format(nick));
     } else {
       msg.reply(msg.random(badReplies));
     }
