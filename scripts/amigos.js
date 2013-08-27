@@ -22,7 +22,7 @@ module.exports = function(robot) {
     return user && user.friend;
   }
 
-  robot.respond(/(\w+) é amigo nosso$/, function(msg) {
+  robot.respond(/(\w+) é (amigo|nosso) (amigo|nosso)$/, function(msg) {
     var nick   = msg.match[1],
         sender = robot.brain.userForName(msg.envelope.user.name);
     
@@ -35,7 +35,7 @@ module.exports = function(robot) {
     }
   });
 
-  robot.respond(/(\w+) não é( mais)? nosso amigo$/, function(msg) {
+  robot.respond(/(\w+) não é( mais)? (nosso|amigo) (nosso|amigo)$/, function(msg) {
     var user = robot.brain.userForName(msg.match[1]),
         sender = robot.brain.userForName(msg.envelope.user.name);
     if(sender.friend && !user.admin) {
@@ -50,7 +50,7 @@ module.exports = function(robot) {
 
   });
 
-  robot.respond(/(\w+) é (nosso|amigo) (amigo|nosso)\?$/, function(msg) {
+  robot.respond(/(\w+) é( seu)? amigo\?$/, function(msg) {
     var user = robot.brain.userForName(msg.match[1]),
         sender = robot.brain.userForName(msg.envelope.user.name);
     if(user.friend) {
