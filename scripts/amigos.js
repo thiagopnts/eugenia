@@ -10,7 +10,7 @@ if(!String.prototype.format) {
 }
 
 
-var replies    = ["Oi {0}, prazer em conhece-lo", "{0} prazer"],
+var replies    = ["Oi {0}, prazer em conhece-lo ;)", "{0} prazer :**"],
     badReplies = ["Se toca cara, te conheço?", "Sai fora.", "Não conheço nem você, imagina esse outro mané."],
     yes        = ['yeeees', 'sim', 'yep'],
     no         = ['nop', 'nope', 'não', 'nam'];
