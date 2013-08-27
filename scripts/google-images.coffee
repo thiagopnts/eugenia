@@ -39,14 +39,14 @@ module.exports = (robot) ->
 
   robot.respond /animate( me)? (.*)/i, (msg) ->
     if robot.isFriend(msg.envelope.user.name)
-      imageMe msg, msg.match[2], true, (url) ->
+      imageMe msg, msg.match[2], (url) ->
         msg.send url
     else
       msg.reply msg.random(reply)
 
   robot.respond /(gif|gifs)( de)? (.*)/i, (msg) ->
     if robot.isFriend(msg.envelope.user.name)
-      imageMe msg, msg.match[2], true, (url) ->
+      imageMe msg, msg.match[2], (url) ->
         msg.send url
     else
       msg.reply msg.random(reply)
