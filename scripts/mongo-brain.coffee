@@ -29,14 +29,13 @@ module.exports = (robot) ->
   user = process.env.MONGO_USER || "admin"
   pass = process.env.MONGO_PASSWORD || "password"
   host = process.env.MONGO_URI || "localhost"
-  port = process.env.MONGODB_PORT || "27017"
   dbname = process.env.MONGO_DATABASE_NAME || "hubot"
 
   error = (err) ->
     console.log "==MONGO BRAIN UNAVAILABLE==\n==SWITCHING TO MEMORY BRAIN=="
     console.log err
 
-  server = new Server host, port, {}
+  server = new Server host, {}
   db = new Db dbname, server, { w: 1, native_parser: false }
 
   db.open (err, client) ->
