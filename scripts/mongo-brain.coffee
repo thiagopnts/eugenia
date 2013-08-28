@@ -37,31 +37,29 @@ module.exports = (robot) ->
     console.log err
 
   server = new Server host, port, {}
-  db = new Db dbname, server, { w: 1, native_parser: true }
+  db = new Db dbname, server, { w: 1, native_parser: false }
 
   db.open (err, client) ->
     return error err if err
 
     robot.logger.debug 'Successfully opened connection to mongo'
 
-    db.authenticate user, pass, (err, success) ->
+
+    robot.logger.debug 'Successfully authenticated with mongo'
+
+    collection = new Collection client, 'hubot_storage'
+
+    collection.find().limit(1).toArray (err, results) ->
       return error err if err
 
-      robot.logger.debug 'Successfully authenticated with mongo'
+      robot.logger.debug 'Successfully queried mongo'
+      robot.logger.debug Util.inspect(results, false, 4)
 
-      collection = new Collection client, 'hubot_storage'
-
-      collection.find().limit(1).toArray (err, results) ->
-        return error err if err
-
-        robot.logger.debug 'Successfully queried mongo'
-        robot.logger.debug Util.inspect(results, false, 4)
-
-        if results.length > 0
-          robot.brain.data = results[0]
-          robot.brain.emit 'loaded', results[0]
-        else
-          robot.logger.debug 'No results found'
+      if results.length > 0
+        robot.brain.data = results[0]
+        robot.brain.emit 'loaded', results[0]
+      else
+        robot.logger.debug 'No results found'
 
       robot.brain.on 'save', (data) ->
         robot.logger.debug 'Save event caught by mongo'
