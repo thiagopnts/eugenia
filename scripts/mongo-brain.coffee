@@ -26,11 +26,11 @@ Collection = mongodb.Collection
 Db = mongodb.Db
 
 module.exports = (robot) ->
-  user = process.env.MONGODB_USERNAME || "admin"
-  pass = process.env.MONGODB_PASSWORD || "password"
-  host = process.env.MONGODB_HOST || "localhost"
+  user = process.env.MONGO_USER || "admin"
+  pass = process.env.MONGO_PASSWORD || "password"
+  host = process.env.MONGO_URI || "localhost"
   port = process.env.MONGODB_PORT || "27017"
-  dbname = process.env.MONGODB_DB || "hubot"
+  dbname = process.env.MONGO_DATABASE_NAME || "hubot"
 
   error = (err) ->
     console.log "==MONGO BRAIN UNAVAILABLE==\n==SWITCHING TO MEMORY BRAIN=="
@@ -44,22 +44,24 @@ module.exports = (robot) ->
 
     robot.logger.debug 'Successfully opened connection to mongo'
 
-
-    robot.logger.debug 'Successfully authenticated with mongo'
-
-    collection = new Collection client, 'hubot_storage'
-
-    collection.find().limit(1).toArray (err, results) ->
+    db.authenticate user, pass, (err, success) ->
       return error err if err
 
-      robot.logger.debug 'Successfully queried mongo'
-      robot.logger.debug Util.inspect(results, false, 4)
+      robot.logger.debug 'Successfully authenticated with mongo'
 
-      if results.length > 0
-        robot.brain.data = results[0]
-        robot.brain.emit 'loaded', results[0]
-      else
-        robot.logger.debug 'No results found'
+      collection = new Collection client, 'hubot_storage'
+
+      collection.find().limit(1).toArray (err, results) ->
+        return error err if err
+
+        robot.logger.debug 'Successfully queried mongo'
+        robot.logger.debug Util.inspect(results, false, 4)
+
+        if results.length > 0
+          robot.brain.data = results[0]
+          robot.brain.emit 'loaded', results[0]
+        else
+          robot.logger.debug 'No results found'
 
       robot.brain.on 'save', (data) ->
         robot.logger.debug 'Save event caught by mongo'
