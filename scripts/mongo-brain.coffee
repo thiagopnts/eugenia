@@ -41,7 +41,7 @@ module.exports = (robot) ->
     console.log "==MONGO BRAIN UNAVAILABLE==\n==SWITCHING TO MEMORY BRAIN=="
     console.log err
 
-  server = new Server host, {}
+  server = new Server host, '27017', {}
   db = new Db dbname, server, { w: 1, native_parser: false }
 
   db.open (err, client) ->
