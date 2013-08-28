@@ -32,6 +32,11 @@ module.exports = (robot) ->
   dbname = process.env.MONGO_DATABASE_NAME || "hubot"
   host = host.split(':')[0]
 
+  console.log('user', user)
+  console.log('passwd', pass)
+  console.log('host', host)
+  console.log('dbname', dbname)
+
   error = (err) ->
     console.log "==MONGO BRAIN UNAVAILABLE==\n==SWITCHING TO MEMORY BRAIN=="
     console.log err
