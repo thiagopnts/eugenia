@@ -14,13 +14,22 @@ lol = [
   'HUEHUEHUEBRBRBR'
 ]
 
+allowed = ['thiago', 'rafaeldx7', 'Ronnie', 'mateus', 'towerz']
+
 module.exports = (robot) ->
 
   robot.respond /sai do \#\#globo/i, (msg) =>
     robot.adapter.bot.part('##globo')
     msg.send "Seu pedido é uma ordem"
-    
 
+  robot.respond /pode usar tsuru em prod\?/, (msg) =>
+    if msg.envelope.user.name in allowed
+      msg.send "Abs."
+
+  robot.hear /tsuru/i, (msg) ->
+    if msg.envelope.user.name in allowed
+      msg.reply("Não, abs.")
+    
   robot.hear /\boi$/i, (msg) ->
     msg.send msg.random(greetings) + ', ' + msg.random(adjectives)
 
