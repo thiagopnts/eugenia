@@ -18,9 +18,15 @@ allowed = ['thiago', 'rafaeldx7', 'Ronnie', 'mateus', 'towerz']
 
 module.exports = (robot) ->
 
-  robot.respond /sai do \#\#globo/i, (msg) =>
-    robot.adapter.bot.part('##globo')
+  robot.respond /sai do (\#?\#[a-z]*)/i, (msg) =>
+    console.log "Saindo de ", msg.match[1]
     msg.send "Seu pedido é uma ordem"
+    robot.adapter.bot.part(msg.match[1])
+
+  robot.respond /entra no (\#?#[a-z])/, (msg) =>
+    console.log "Entrando em ", msg.match[1]
+    msg.send "Seu pedido é uma ordem"
+    robot.adapter.bot.join(msg.match[1])
 
   robot.respond /pode usar tsuru em prod\?/, (msg) =>
     if msg.envelope.user.name in allowed
