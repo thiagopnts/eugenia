@@ -23,7 +23,7 @@ module.exports = (robot) ->
     msg.send "Seu pedido é uma ordem"
     robot.adapter.bot.part(msg.match[1])
 
-  robot.respond /entra no (\#?#[a-z])/, (msg) =>
+  robot.respond /entra no (\#?#[a-z]*)/, (msg) =>
     console.log "Entrando em ", msg.match[1]
     msg.send "Seu pedido é uma ordem"
     robot.adapter.bot.join(msg.match[1])
